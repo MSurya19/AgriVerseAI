@@ -1,0 +1,24 @@
+{
+    "name": "AgriVerseAI - Farming Assistant",
+    "short_name": "AgriVerseAI",
+    "description": "AI-powered crop yield prediction and plant disease detection",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#10b981",
+    "theme_color": "#10b981",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDI1NiAyNTYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyNTYiIGhlaWdodD0iMjU2IiBmaWxsPSIjMTBiOTgxIi8+CjxwYXRoIGQ9Ik0xMjggNDhDOTQuODYgNDggNjggNzQuODYgNjggMTA4QzY4IDE0MS4xNCA5NC44NiAxNjggMTI4IDE2OEMxNjEuMTQgMTY4IDE4OCAxNDEuMTQgMTg4IDEwOEMxODggNzQuODYgMTYxLjE0IDQ4IDEyOCA0OFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xNDQgMTIwSDEyVjE0OEgxNDRWMTIwWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTI0NCAxMjBIMTYwVjE0OEgyNDRWMTIwWiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+Cg==",
+            "sizes": "192x192",
+            "type": "image/svg+xml"
+        },
+        {
+            "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDI1NiAyNTYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyNTYiIGhlaWdodD0iMjU2IiBmaWxsPSIjMTBiOTgxIi8+CjxwYXRoIGQ9Ik0xMjggNDhDOTQuODYgNDggNjggNzQuODYgNjggMTA4QzY4IDE0MS4xNCA5NC44NiAxNjggMTI4IDE2OEMxNjEuMTQgMTY4IDE4OCAxNDEuMTQgMTg4IDEwOEMxODggNzQuODYgMTYxLjE0IDQ4IDEyOCA0OFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xNDQgMTIwSDEyVjE0OEgxNDRWMTIwWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTI0NCAxMjBIMTYwVjE0OEgyNDRWMTIwWiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+Cg==",
+            "sizes": "512x512",
+            "type": "image/svg+xml"
+        }
+    ],
+    "categories": ["business", "productivity", "utilities"],
+    "lang": "en-US"
+}

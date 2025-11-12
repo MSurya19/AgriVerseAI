@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AgriVerseAI</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar glass">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-seedling"></i>
+                <span>AgriVerseAI</span>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="#yield-prediction" class="nav-link active">YIELD PREDICTION</a>
+                <a href="#disease-detection" class="nav-link">DISEASE DETECTION</a>
+                <a href="#analytics" class="nav-link">ANALYTICS</a>
+            </div>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="user-menu">
+                    <button class="user-btn" id="userBtn">
+                        <i class="fas fa-user"></i>
+                        <span id="userName">User</span>
+                    </button>
+                    <div class="user-dropdown">
+                        <a href="#" class="dropdown-item" onclick="showProfile()">
+                            <i class="fas fa-user-cog"></i>
+                            Profile Settings
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="showPredictionHistory()">
+                            <i class="fas fa-history"></i>
+                            Prediction History
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item logout" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Dashboard -->
+    <main class="dashboard-main">
+        <div class="container">
+            <!-- Welcome Banner -->
+            <div class="welcome-banner glass">
+                <div class="welcome-content">
+                    <h1>Welcome to AgriVerseAI Dashboard</h1>
+                    <p>Access AI-powered tools for yield prediction and disease detection with enhanced analytics</p>
+                </div>
+                <div class="welcome-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="totalPredictions">0</span>
+                        <span class="stat-label">Total Predictions</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="accuracyRate">95%</span>
+                        <span class="stat-label">Model Accuracy</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="diseasesDetected">0</span>
+                        <span class="stat-label">Diseases Detected</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Yield Prediction Section -->
+            <section id="yield-prediction" class="dashboard-section active">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-line"></i> Enhanced Crop Yield Prediction</h2>
+                    <p>Predict crop yields using environmental factors with comprehensive analytics</p>
+                </div>
+
+                <div class="prediction-container">
+                    <form id="yieldForm" class="prediction-form glass">
+                        <div class="form-section">
+                            <h4><i class="fas fa-seedling"></i> Crop Information</h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="cropType"><i class="fas fa-seedling"></i> Crop Type</label>
+                                    <select id="cropType" required>
+                                        <option value="wheat">Wheat</option>
+                                        <option value="rice">Rice</option>
+                                        <option value="corn">Corn</option>
+                                        <option value="soybean">Soybean</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="farmSize"><i class="fas fa-ruler-combined"></i> Farm Size (hectares)</label>
+                                    <input type="number" id="farmSize" value="10" min="1" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4><i class="fas fa-satellite"></i> Satellite & Environmental Data</h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="ndvi"><i class="fas fa-satellite"></i> NDVI Index</label>
+                                    <input type="number" id="ndvi" step="0.01" min="0" max="1" value="0.65" required>
+                                    <small>Normalized Difference Vegetation Index (0-1)</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="rainfall"><i class="fas fa-cloud-rain"></i> Rainfall (mm)</label>
+                                    <input type="number" id="rainfall" value="800" min="0" required>
+                                    <small>Annual or seasonal rainfall</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="temperature"><i class="fas fa-thermometer-half"></i> Temperature (°C)</label>
+                                    <input type="number" id="temperature" value="28" step="0.1" required>
+                                    <small>Average temperature</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="humidity"><i class="fas fa-tint"></i> Humidity (%)</label>
+                                    <input type="number" id="humidity" min="0" max="100" value="65" required>
+                                    <small>Average humidity level</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4><i class="fas fa-vial"></i> Soil Conditions</h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="soilPh"><i class="fas fa-vial"></i> Soil pH</label>
+                                    <input type="number" id="soilPh" step="0.1" min="4" max="9" value="6.5" required>
+                                    <small>Soil acidity/alkalinity (4-9)</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="nitrogenLevel"><i class="fas fa-atom"></i> Nitrogen Level (ppm)</label>
+                                    <input type="number" id="nitrogenLevel" value="50" min="0" max="200" required>
+                                    <small>Soil nitrogen content</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="evi"><i class="fas fa-chart-area"></i> EVI Index</label>
+                                    <input type="number" id="evi" step="0.01" min="0" max="1" value="0.55" required>
+                                    <small>Enhanced Vegetation Index</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="predict-btn">
+                            <i class="fas fa-calculator"></i> Predict Yield with Analytics
+                        </button>
+                    </form>
+                    
+                    <div id="yieldResults" class="results-container glass hidden">
+                        <h3>Yield Prediction Results</h3>
+                        
+                        <div class="result-cards">
+                            <div class="result-card">
+                                <div class="result-icon">
+                                    <i class="fas fa-weight-hanging"></i>
+                                </div>
+                                <div class="result-content">
+                                    <h4>Predicted Yield</h4>
+                                    <p class="result-value" id="predictedYield">-</p>
+                                    <small id="yieldUnit">kilograms per hectare</small>
+                                </div>
+                            </div>
+                            
+                            <div class="result-card">
+                                <div class="result-icon">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <div class="result-content">
+                                    <h4>Confidence Level</h4>
+                                    <p class="result-value" id="confidenceLevel">-</p>
+                                    <small>prediction accuracy</small>
+                                </div>
+                            </div>
+                            
+                            <div class="result-card">
+                                <div class="result-icon">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="result-content">
+                                    <h4>Risk Level</h4>
+                                    <p class="result-value" id="riskLevel">-</p>
+                                    <small>yield risk assessment</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Enhanced Analytics Section -->
+                        <div class="analytics-section">
+                            <h4><i class="fas fa-chart-line"></i> Yield Analytics</h4>
+                            
+                            <div class="analytics-grid">
+                                <div class="analytics-card">
+                                    <h5>Expected Yield Range</h5>
+                                    <div class="range-display">
+                                        <span class="range-min" id="yieldMin">-</span>
+                                        <div class="range-bar">
+                                            <div class="range-fill" id="yieldRangeFill"></div>
+                                        </div>
+                                        <span class="range-max" id="yieldMax">-</span>
+                                    </div>
+                                    <p class="range-average">Average: <span id="yieldAverage">-</span></p>
+                                </div>
+                                
+                                <div class="analytics-card">
+                                    <h5>Comparison to Regional Average</h5>
+                                    <div class="comparison-display">
+                                        <div class="comparison-item">
+                                            <span>Your Prediction</span>
+                                            <span id="yourYield">-</span>
+                                        </div>
+                                        <div class="comparison-item">
+                                            <span>Regional Average</span>
+                                            <span id="regionalAverage">-</span>
+                                        </div>
+                                        <div class="comparison-difference">
+                                            <span>Difference</span>
+                                            <span id="yieldDifference" class="difference-value">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Factors Analysis -->
+                        <div class="factors-section">
+                            <h4><i class="fas fa-search"></i> Factors Analysis</h4>
+                            <div id="factorsList" class="factors-list">
+                                <!-- Factors will be populated here -->
+                            </div>
+                        </div>
+
+                        <!-- Recommendations -->
+                        <div class="recommendations-section">
+                            <h4><i class="fas fa-lightbulb"></i> Recommendations</h4>
+                            <div class="recommendations-grid">
+                                <div class="recommendation-card">
+                                    <h5><i class="fas fa-bolt"></i> Immediate Actions</h5>
+                                    <ul id="immediateActions">
+                                        <!-- Actions will be populated here -->
+                                    </ul>
+                                </div>
+                                <div class="recommendation-card">
+                                    <h5><i class="fas fa-chart-line"></i> Long-term Strategies</h5>
+                                    <ul id="longTermStrategies">
+                                        <!-- Strategies will be populated here -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Weather Impact -->
+                        <div class="weather-impact glass">
+                            <h4><i class="fas fa-cloud-sun"></i> Weather Impact Analysis</h4>
+                            <div id="weatherInfo" class="weather-info">
+                                <!-- Weather info will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Disease Detection Section -->
+            <section id="disease-detection" class="dashboard-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-leaf"></i> Enhanced Plant Disease Detection</h2>
+                    <p>Upload plant leaf images to detect diseases using AI with comprehensive analysis</p>
+                </div>
+
+                <div class="detection-container">
+                    <!-- Image Guidelines -->
+                    <div id="imageGuidelines" class="guidelines glass">
+                        <h4><i class="fas fa-info-circle"></i> Image Guidelines</h4>
+                        <ul>
+                            <li>Upload clear images of <strong>plant leaves only</strong></li>
+                            <li>Ensure the leaf is well-lit and in focus</li>
+                            <li>Avoid blurry, dark, or shadowed images</li>
+                            <li>Capture against a neutral background</li>
+                            <li>Show a single leaf or part of a leaf clearly</li>
+                        </ul>
+                    </div>
+
+                    <div class="upload-section">
+                        <div class="upload-area glass" id="uploadArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h3>Upload Plant Leaf Image</h3>
+                            <p>Supported formats: JPG, PNG, JPEG, WEBP - Max 5MB</p>
+                            <input type="file" id="imageUpload" accept="image/*" hidden>
+                            <button type="button" class="upload-btn" onclick="document.getElementById('imageUpload').click()">
+                                <i class="fas fa-folder-open"></i> Choose Image
+                            </button>
+                        </div>
+                        
+                        <div id="imagePreview" class="image-preview glass hidden">
+                            <img id="previewImage" src="#" alt="Plant Leaf Preview">
+                            <button class="remove-image" onclick="removeImage()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button id="analyzeBtn" class="analyze-btn glass hidden">
+                        <i class="fas fa-search"></i> Analyze for Diseases
+                    </button>
+                    
+                    <div id="diseaseResults" class="results-container glass hidden">
+                        <h3>Comprehensive Disease Analysis</h3>
+                        
+                        <!-- Main Prediction -->
+                        <div class="disease-result">
+                            <div class="disease-header">
+                                <div class="disease-info">
+                                    <h4 id="diseaseName">-</h4>
+                                    <div class="confidence-display">
+                                        <span class="confidence-badge" id="confidenceBadge">
+                                            <span id="confidenceValue">-</span>% confidence
+                                        </span>
+                                        <span class="severity-badge" id="severityBadge">
+                                            <span id="severityValue">-</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="health-status" id="healthStatus">
+                                    <!-- Health status will be shown here -->
+                                </div>
+                            </div>
+
+                            <!-- Disease Description -->
+                            <div class="disease-description">
+                                <h5><i class="fas fa-info-circle"></i> Description</h5>
+                                <p id="diseaseDescription">-</p>
+                            </div>
+
+                            <!-- Alternative Predictions -->
+                            <div class="alternative-predictions">
+                                <h5><i class="fas fa-list"></i> Alternative Predictions</h5>
+                                <div id="alternativePredictions" class="predictions-list">
+                                    <!-- Alternative predictions will be populated here -->
+                                </div>
+                            </div>
+                            
+                            <!-- Treatment Recommendations -->
+                            <div class="treatment-recommendations">
+                                <h5><i class="fas fa-first-aid"></i> Recommended Actions</h5>
+                                <ul id="treatmentList">
+                                    <li>Loading recommendations...</li>
+                                </ul>
+                            </div>
+
+                            <!-- Prevention Measures -->
+                            <div class="prevention-measures">
+                                <h5><i class="fas fa-shield-alt"></i> Prevention Measures</h5>
+                                <ul id="preventionList">
+                                    <li>Loading prevention measures...</li>
+                                </ul>
+                            </div>
+
+                            <!-- Action Plan -->
+                            <div class="action-plan">
+                                <h5><i class="fas fa-tasks"></i> Action Plan</h5>
+                                <div class="action-grid">
+                                    <div class="action-card">
+                                        <h6><i class="fas fa-bolt"></i> Immediate Actions</h6>
+                                        <ul id="immediateDiseaseActions">
+                                            <!-- Immediate actions will be populated here -->
+                                        </ul>
+                                    </div>
+                                    <div class="action-card">
+                                        <h6><i class="fas fa-eye"></i> Monitoring Advice</h6>
+                                        <ul id="monitoringAdvice">
+                                            <!-- Monitoring advice will be populated here -->
+                                        </ul>
+                                    </div>
+                                    <div class="action-card">
+                                        <h6><i class="fas fa-user-md"></i> Expert Consultation</h6>
+                                        <p id="expertConsultation">-</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analytics" class="dashboard-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-bar"></i> Prediction Analytics & History</h2>
+                    <p>Track your prediction history and model performance</p>
+                </div>
+
+                <div class="analytics-container">
+                    <div class="analytics-overview glass">
+                        <h3><i class="fas fa-chart-pie"></i> Overview</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-calculator"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h4 id="totalPredictionsCount">0</h4>
+                                    <p>Total Predictions</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-leaf"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h4 id="diseasePredictionsCount">0</h4>
+                                    <p>Disease Detections</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-seedling"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h4 id="yieldPredictionsCount">0</h4>
+                                    <p>Yield Predictions</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h4 id="averageAccuracy">0%</h4>
+                                    <p>Average Accuracy</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="history-section">
+                        <div class="history-card glass">
+                            <h3><i class="fas fa-history"></i> Recent Predictions</h3>
+                            <div id="recentPredictions" class="predictions-list">
+                                <!-- Recent predictions will be populated here -->
+                            </div>
+                        </div>
+
+                        <div class="common-diseases glass">
+                            <h3><i class="fas fa-bug"></i> Common Diseases Detected</h3>
+                            <div id="commonDiseasesList" class="diseases-list">
+                                <!-- Common diseases will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Loading Spinner -->
+    <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <p>Processing your request...</p>
+    </div>
+
+    <script src="theme.js"></script>
+    <script src="auth.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
