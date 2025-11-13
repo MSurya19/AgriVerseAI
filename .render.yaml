@@ -1,10 +1,22 @@
 services:
+  # 🟢 Node.js backend for authentication
   - type: web
-    name: agriverse-backend
+    name: agriverse-auth
     env: node
-    rootDir: backend
-    buildCommand: "npm install"
-    startCommand: "node server.js"
+    rootDir: backend/auth
+    buildCommand: npm install
+    startCommand: node server.js
     envVars:
       - key: NODE_VERSION
         value: 18
+
+  # 🟠 Flask backend for AI/ML
+  - type: web
+    name: agriverse-ai
+    env: python
+    rootDir: backend
+    buildCommand: ""
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11
