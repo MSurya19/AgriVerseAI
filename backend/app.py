@@ -1008,6 +1008,15 @@ if __name__ == '__main__':
     print("🚀 Starting AgriVerseAI Backend v2.0...")
     print("📦 TensorFlow Version:", tf.__version__)
     print("🐍 Python Version:", os.sys.version)
+
+    if __name__ == "__main__":
+         port = int(os.environ.get("PORT", 5000))
+    logger.info(f"🚀 Starting server on port {port}")
+    ModelManager.load_models()
+    app.run(host="0.0.0.0", port=port)
+
+   
+
     
     try:
         # Load models immediately
@@ -1023,6 +1032,9 @@ if __name__ == '__main__':
         
         app.run(debug=True, host='0.0.0.0', port=5000, threaded=True)
         
+        
     except Exception as e:
         print(f"💥 Failed to start server: {e}")
         exit(1)
+
+        

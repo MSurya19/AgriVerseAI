@@ -528,4 +528,7 @@ app.listen(PORT, () => {
     console.log(`📊 MongoDB: ${MONGODB_URI}`);
     console.log(`🔑 JWT Secret: ${JWT_SECRET ? 'Set' : 'Not set'}`);
     console.log(`🌐 Health check: http://localhost:${PORT}/api/auth/health`);
+
+    
 });
+
